@@ -26,7 +26,7 @@ A solução foi desenhada para ser elástica, resiliente e de custo variável (*
 * **Amazon Bedrock (Knowledge Bases):** Implementação de arquitetura RAG (*Retrieval-Augmented Generation*) com o modelo Claude 3 e Titan Embeddings para permitir consultas complexas em linguagem natural sobre o histórico de sinistros.
 * **Amazon DynamoDB:** Banco de dados NoSQL para persistência rápida de metadados e logs operacionais.
 
-### Fluxo de Orquestração (Pipeline)
+### Fluxo de Orquestração
 Abaixo está a visualização do fluxo lógico estruturado através da nossa máquina de estados:
 
 ![Arquitetura do Step Functions](assets/02.%20Arquitetura%20Step%20Functions.png)
@@ -36,13 +36,13 @@ Abaixo está a visualização do fluxo lógico estruturado através da nossa má
 ## Demonstração da Solução em Ação
 O MVP foi totalmente validado e testado com sucesso. No vídeo abaixo, demonstramos a simulação de chamadas de API via Postman, a execução em tempo real da State Machine e as consultas em linguagem natural utilizando as bases de conhecimento do Amazon Bedrock:
 
-[Clique aqui para assistir ao Vídeo de Demonstração Completa](./Demo-Grupo9.mp4)
+[Clique aqui para assistir ao Vídeo de Demonstração Completa](https://youtu.be/-YIjZU0lI64)
 
-> 💡 **Nota de Contexto:** Como o ambiente de laboratório da AWS foi encerrado após o término do Hackathon, esta gravação e os diagramas anexos servem como os artefatos oficiais de validação e homologação do MVP desenvolvido pelo time.
+> **Nota de Contexto:** Como o ambiente de laboratório da AWS foi encerrado antes das apresentações das equipes, esta gravação e os diagramas anexos servem como os artefatos oficiais de validação e homologação do MVP desenvolvido pelo time.
 
 ---
 
-## 🛠️ Evidências de Desenvolvimento e Homologação (Mão na Massa)
+## 🛠️ Evidências de Desenvolvimento e Homologação
 
 Para garantir a confiabilidade da esteira, cada componente foi configurado e testado individualmente no console da AWS antes da integração final com o Step Functions. 
 
