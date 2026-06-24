@@ -7,7 +7,7 @@ A solução reduz o tempo de processamento manual de aproximadamente **60 minuto
 
 ---
 
-## O Problema de Negócio (Desafio DocuSmart)
+## O Problema de Negócio
 * **Processamento lento:** Análise manual e demorada de documentos desestruturados enviado por segurados.
 * **Alto custo operacional:** Equipes qualificadas focadas em tarefas repetitivas de triagem e digitação.
 * **Erros de digitação:** A inserção manual de dados gerava inconsistências e retrabalho operacional.
@@ -23,13 +23,14 @@ A solução foi desenhada para ser elástica, resiliente e de custo variável (*
 * **AWS Lambda:** Funções computacionais de microsserviços para manipulação e integração via Python (`boto3`).
 * **AWS Step Functions:** Orquestração orientada a eventos de todo o fluxo de IDP, garantindo resiliência a falhas.
 * **Amazon Textract & Amazon Comprehend:** Extração inteligente via OCR de tabelas, chaves-valores e detecção automatizada de entidades.
-* **Amazon Bedrock (Knowledge Bases):** Implementação de arquitetura RAG (*Retrieval-Augmented Generation*) com o modelo Claude 3 e Titan Embeddings para permitir consultas complexas em linguagem natural sobre o histórico de sinistros.
+* **Amazon Bedrock (Knowledge Bases):** Implementação de arquitetura RAG com o modelo Claude 3 e Titan Embeddings para permitir consultas complexas em linguagem natural sobre o histórico de sinistros.
 * **Amazon DynamoDB:** Banco de dados NoSQL para persistência rápida de metadados e logs operacionais.
 
 ### Fluxo de Orquestração
-Abaixo está a visualização do fluxo lógico estruturado através da nossa máquina de estados:
+Abaixo está a visualização do fluxo lógico estruturado através da nossa máquina de estados e fazendo testes de execução:
 
-![Arquitetura do Step Functions](assets/02.%20Arquitetura%20Step%20Functions.png)
+![Arquitetura do Step Functions](assets/16.%20step%20function%20completo.png)
+![Execução do Step Functions](assets/02.%20Arquitetura%20Step%20Functions.png)
 
 ---
 
@@ -46,8 +47,8 @@ O MVP foi totalmente validado e testado com sucesso. No vídeo abaixo, demonstra
 
 Para garantir a confiabilidade da esteira, cada componente foi configurado e testado individualmente no console da AWS antes da integração final com o Step Functions. 
 
-### 1. Camada de Integração e Exposição (Amazon API Gateway & Postman)
-Esta foi uma etapa marcante de aprendizado prático no projeto, envolvendo a primeira configuração e manipulação do **Amazon API Gateway** e a realização de testes de rotas através do **Postman**. Foram estruturados os métodos REST para comunicação assíncrona com os microsserviços.
+### 1. Camada de Integração e Exposição
+Esta foi uma etapa marcante de aprendizado prático no projeto (para mim), envolvendo a primeira configuração e manipulação do **Amazon API Gateway** e a realização de testes de rotas através do **Postman**. Foram estruturados os métodos REST para comunicação assíncrona com os microsserviços.
 
 * **Criação da API e Métodos:** Estruturação inicial das rotas da API que servem de porta de entrada para os documentos da DocuSmart.
   ![Criação da API](./assets/06.%20criação%20da%20API.png)
@@ -55,14 +56,14 @@ Esta foi uma etapa marcante de aprendizado prático no projeto, envolvendo a pri
 * **Endpoints e Lambdas:** Validação dos primeiros 4 métodos HTTP integrados diretamente a 4 funções AWS Lambda isoladas.
   ![Primeiro Teste Criado](./assets/07.%20primeiro%20teste%20criado%204%20métodos%20e%204%20lambdas.png)
 
-* **API Otimizada:** Refatoramos a arquitetura para reduzir a complexidade de manutenção e permissões. Implementamos uma nova versão da API utilizando apenas um único resource unificado integrado a uma única função AWS Lambda, centralizando as chamadas REST de forma muito mais enxuta e eficiente.
+* **API Otimizada:** Refatorei a arquitetura para reduzir a complexidade de manutenção e permissões. Implementei uma nova versão da API utilizando apenas um único resource unificado integrado a uma única função AWS Lambda, centralizando as chamadas REST de forma muito mais enxuta e eficiente.
     ![Nova API](./assets/10.%20nova%20versao%20da%20API%20com%201%20metodo%20e%201%20lambda.png)
 
 ### 2. Camada de Armazenamento e Permissões (Amazon S3 & IAM)
 * **Segurança Baseada em Menor Privilégio:** Configuração de Roles do AWS IAM dedicadas e políticas de bucket restritivas para garantir que apenas os microsserviços autorizados manipulem os documentos confidenciais de sinistro.
   ![IAM Role para bucket](./assets/04.%20IAM%20Role%20para%20bucket.png)
 
-* **Repositório de Documentos (Data Lake de Entrada):** Estruturação do Bucket no Amazon S3 simulando o recebimento real de arquivos desestruturados (PDFs, imagens e comprovantes) prontos para a esteira de processamento.
+* **Repositório de Documentos:** Estruturação do Bucket no Amazon S3 simulando o recebimento real de arquivos desestruturados (PDFs, imagens e comprovantes) prontos para a esteira de processamento.
   ![Bucket de Documentos](./assets/03.%20Bucket.png)
   ![Bucket com Documentos Armazenados](./assets/05.%20bucket%20com%20documentos.png)
 
@@ -71,7 +72,7 @@ Esta foi uma etapa marcante de aprendizado prático no projeto, envolvendo a pri
 ## 🚀 Próximos Passos: Escalonando a Inteligência e Observabilidade
 Com a evolução natural da plataforma além do MVP apresentado, mapeamos as seguintes melhorias:
 
-1. **Governança com Amazon A2I (Augmented AI):** Implementação de um fluxo de revisão humana (*Human-in-the-loop*) automático para documentos cujo índice de confiança na extração seja inferior a 85%.
+1. **Governança com Amazon A2I (Augmented AI):** Implementação de um fluxo de revisão humana automático para documentos cujo índice de confiança na extração seja inferior a 85%.
 2. **Dashboard Gerencial com Amazon QuickSight:** Substituição da visualização técnica do CloudWatch por painéis de inteligência de negócios (*BI*) no QuickSight, permitindo que a diretoria visualize em tempo real o volume de sinistros, eficiência operacional e custos por documento.
 3. **Interface do Usuário (Front-End):** Desenvolvimento de uma aplicação web dedicada (utilizando AWS Amplify) para que analistas de sinistro manuseiem e visualizem a esteira de documentos de forma simples e intuitiva.
 4. **Agentes Autônomos de IA:** Implementação futura de agentes no **Amazon Bedrock** para conduzir interações automáticas complexas e tomadas de decisão na triagem fina.
@@ -86,8 +87,8 @@ Este projeto foi fruto de um intenso trabalho em equipe.
 * **Ivan** — [LinkedIn](https://www.linkedin.com/in/ivanrff/)
 * **Calvin** — [LinkedIn](https://www.linkedin.com/in/calvinvinicius/)
 * **Thiago** — [LinkedIn](https://www.linkedin.com/in/thiago-silva-tech/)
-* **Greison** 
-* **Enilton**
+* **Greison** — [LinkedIn](https://www.linkedin.com/in/greison-vinicius-17b929192/)
+* **Enilton** — [LinkedIn](https://www.linkedin.com/in/enilton-nonato-de-oliveira/?locale=pt)
 
 ---
 *Agradecemos imensamente à Escola da Nuvem e a todo o corpo de mentores e avaliadores pelo suporte, infraestrutura e desafio proposto.*
