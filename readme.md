@@ -15,16 +15,25 @@ A solução reduz o tempo de processamento manual de aproximadamente **60 minuto
 
 ---
 
-## Arquitetura da Solução e Tecnologias
-A solução foi desenhada para ser elástica, resiliente e de custo variável (*pay-per-use*), utilizando os seguintes serviços de ponta da AWS:
+## 🛠️ Tecnologias e Ferramentas Utilizadas
 
-* **Amazon S3:** Armazenamento seguro e escalável dos documentos originais.
-* **Amazon API Gateway:** Exposição de endpoints REST para recepção segura e consulta dos documentos processados.
-* **AWS Lambda:** Funções computacionais de microsserviços para manipulação e integração via Python (`boto3`).
-* **AWS Step Functions:** Orquestração orientada a eventos de todo o fluxo de IDP, garantindo resiliência a falhas.
-* **Amazon Textract & Amazon Comprehend:** Extração inteligente via OCR de tabelas, chaves-valores e detecção automatizada de entidades.
-* **Amazon Bedrock (Knowledge Bases):** Implementação de arquitetura RAG com o modelo Claude 3 e Titan Embeddings para permitir consultas complexas em linguagem natural sobre o histórico de sinistros.
-* **Amazon DynamoDB:** Banco de dados NoSQL para persistência rápida de metadados e logs operacionais.
+O projeto foi construído utilizando o ecossistema da **Amazon Web Services (AWS)** seguindo o modelo *serverless*, além de ferramentas de mercado para testes de integração:
+
+*   **Orquestração e Computação:**
+    *   `AWS Step Functions`: Coordenação de todo o fluxo lógico e estados da esteira de documentos.
+    *   `AWS Lambda`: Execução de microsserviços orientados a eventos para processamento de dados.
+*   **Integração e Exposição de APIs:**
+    *   `Amazon API Gateway`: Criação, manutenção e segurança dos endpoints REST da aplicação.
+    *   `Postman`: Ferramenta utilizada para simulação de requisições, testes de métodos HTTP e validação dos payloads.
+*   **Inteligência Artificial e Machine Learning:**
+    *   `Amazon Bedrock (Knowledge Bases)`: Criação da base de conhecimento com arquitetura RAG para interações em linguagem natural.
+    *   `Amazon Textract`: Extração automatizada de textos, formulários e tabelas dos documentos de sinistro.
+    *   `Amazon Comprehend`: Processamento de Linguagem Natural (PLN) para extração de entidades e insights.
+*   **Armazenamento e Bancos de Dados:**
+    *   `Amazon S3`: Data Lake seguro para o armazenamento dos documentos e arquivos desestruturados recebidos.
+    *   `Amazon DynamoDB`: Banco de dados NoSQL de alta performance para persistência de metadados e logs.
+*   **Segurança e Governança:**
+    *   `AWS IAM (Identity and Access Management)`: Gerenciamento de acessos e criação de `IAM Roles` específicas sob o princípio do menor privilégio para comunicação segura entre os serviços.
 
 ### Fluxo de Orquestração
 Abaixo está a visualização do fluxo lógico estruturado através da nossa máquina de estados e fazendo testes de execução:
@@ -72,7 +81,7 @@ Esta foi uma etapa marcante de aprendizado prático no projeto (para mim), envol
 ## 🚀 Próximos Passos: Escalonando a Inteligência e Observabilidade
 Com a evolução natural da plataforma além do MVP apresentado, mapeamos as seguintes melhorias:
 
-1. **Governança com Amazon A2I (Augmented AI):** Implementação de um fluxo de revisão humana automático para documentos cujo índice de confiança na extração seja inferior a 85%.
+1. **Governança com Amazon A2I:** Implementação de um fluxo de revisão humana automático para documentos cujo índice de confiança na extração seja inferior a 85%.
 2. **Dashboard Gerencial com Amazon QuickSight:** Substituição da visualização técnica do CloudWatch por painéis de inteligência de negócios (*BI*) no QuickSight, permitindo que a diretoria visualize em tempo real o volume de sinistros, eficiência operacional e custos por documento.
 3. **Interface do Usuário (Front-End):** Desenvolvimento de uma aplicação web dedicada (utilizando AWS Amplify) para que analistas de sinistro manuseiem e visualizem a esteira de documentos de forma simples e intuitiva.
 4. **Agentes Autônomos de IA:** Implementação futura de agentes no **Amazon Bedrock** para conduzir interações automáticas complexas e tomadas de decisão na triagem fina.
