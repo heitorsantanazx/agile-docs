@@ -15,7 +15,7 @@ A solução reduz o tempo de processamento manual de aproximadamente **60 minuto
 
 ---
 
-## 🛠️ Tecnologias e Ferramentas Utilizadas
+## Tecnologias e Ferramentas Utilizadas
 
 O projeto foi construído utilizando o ecossistema da **Amazon Web Services (AWS)** seguindo o modelo *serverless*, além de ferramentas de mercado para testes de integração:
 
@@ -52,7 +52,7 @@ O MVP foi totalmente validado e testado com sucesso. No vídeo abaixo, demonstra
 
 ---
 
-## 🛠️ Evidências de Desenvolvimento e Homologação
+## Evidências de Desenvolvimento
 
 Para garantir a confiabilidade da esteira, cada componente foi configurado e testado individualmente no console da AWS antes da integração final com o Step Functions. 
 
@@ -78,7 +78,7 @@ Esta foi uma etapa marcante de aprendizado prático no projeto (para mim), envol
 
 ---
 
-## 🚀 Próximos Passos: Escalonando a Inteligência e Observabilidade
+## Próximos Passos: Escalonando a Inteligência e Observabilidade
 Com a evolução natural da plataforma além do MVP apresentado, mapeamos as seguintes melhorias:
 
 1. **Governança com Amazon A2I:** Implementação de um fluxo de revisão humana automático para documentos cujo índice de confiança na extração seja inferior a 85%.
